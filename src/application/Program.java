@@ -25,8 +25,9 @@ public class Program {
         Date checkOut = sdf.parse(sc.next());
 
         /*
-        Checking validation dates  - 1 solution (very bad).
-        The solution should not have been implemented in the main class.
+        Checking validation dates  - 2 solution (bad).
+        One part of the solution has been implemented in the Reservation Class, but another part is still
+        being implemented in the main class.
         */
         if (!checkOut.after(checkIn)){
             System.out.println("Error in reservation! Check-out date must be after Check-in date.");
@@ -43,19 +44,15 @@ public class Program {
             System.out.print("Check-out date (dd/MM/yyyy): ");
             checkOut = sdf.parse(sc.next());
 
-            Date now = new Date();
-            if (checkIn.before(now) || checkOut.before(now)){
-                System.out.println("Error in reservation! Reservation dates for update must be future dates");
-            } else if (!checkOut.after(checkIn)) {
-                System.out.println("Error in reservation! Check-out date must be after Check-in date.");
+            // method - updateDates
+            String error = reservation.updateDates(checkIn, checkOut);
+            if (error != null){
+                System.out.println("Error in reservation! " + error);
             }
             else {
-                // method - updateDates
-                reservation.updateDates(checkIn, checkOut);
                 System.out.println("Reservation: " + reservation);
             }
         }
-
         sc.close();
     }
 }
